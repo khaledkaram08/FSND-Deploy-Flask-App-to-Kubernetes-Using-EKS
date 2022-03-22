@@ -13,14 +13,13 @@ phases:
       # Get latest stable release kubectl
       - curl -LO https://storage.googleapis.com/kubernetes-release/release/`curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt`/bin/linux/amd64/kubectl
         # Command for specific kubectl version:
-        #- curl -LO https://storage.googleapis.com/kubernetes-release/release/v1.18.0/bin/linux/amd64/kubectl
+        #- curl -LO https://storage.googleapis.com/kubernetes-release/release/v1.22.5/bin/linux/amd64/kubectl
       - chmod +x ./kubectl ./aws-iam-authenticator
       - echo `kubectl version`
       - export PATH=$PWD/:$PATH
       - python -m pip install --upgrade --force pip
       - apt-get update && apt-get -y install jq  && pip install --upgrade awscli
-      - echo Starting the Docker daemon...
-      - /usr/local/bin/dockerd-entrypoint.sh
+
   pre_build:
     commands:
       - TAG="$REPOSITORY_NAME.$REPOSITORY_BRANCH.$ENVIRONMENT_NAME.$(date +%Y-%m-%d.%H.%M.%S).$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | head -c 8)"
